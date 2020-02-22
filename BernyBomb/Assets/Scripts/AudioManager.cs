@@ -55,7 +55,7 @@ public class AudioManager : MonoBehaviour
     public void Fade(string name)
     {
         Sound s = Array.Find(sounds, sound => sound.name == name);
-        s.source.DOFade(0.2f, 2.0f);
+        s.source.DOFade(0.05f, 2.0f);
     }
 
     public void Fade2(string name)

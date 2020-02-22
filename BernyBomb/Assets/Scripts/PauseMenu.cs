@@ -11,6 +11,9 @@ public class PauseMenu : MonoBehaviour
     public GameObject controlsUI;
     public GameObject TitoUI;
 
+    public GameObject[] active;
+    bool isactive = false;
+
     // Update is called once per frame
     void Update()
     {
@@ -35,7 +38,21 @@ public class PauseMenu : MonoBehaviour
         TitoUI.SetActive(true);
         Time.timeScale = 1f;
         GameIsPaused = false;
-        HideMouseCursor();
+        foreach (GameObject active in active) 
+        {
+            if(active.activeSelf)
+            {
+                isactive = true;
+            }
+        }
+        if(isactive == false)
+        {
+            HideMouseCursor();
+        }
+        else
+        {
+            isactive = false;
+        }
     }
 
     void Pause()

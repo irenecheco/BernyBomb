@@ -15,7 +15,7 @@ public class PlayerMovementEasy2 : MonoBehaviour
     float pitch = 0f;
 
     [Range(5, 15)]
-    public float mouseSensitivity = 10f;
+    public float mouseSensitivity = 6f;
 
     [Range(45, 85)]
     public float pitchRange = 45f;

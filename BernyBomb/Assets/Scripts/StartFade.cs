@@ -11,6 +11,7 @@ public class StartFade : MonoBehaviour
     public GameObject UITito;
     public GameObject contBtn;
     public Canvas StartCanvas;
+    public GameObject StartCanvas1;
     public PlayerMovementEasy2 plmov;
     public GameObject progBar;
 
@@ -34,7 +35,7 @@ public class StartFade : MonoBehaviour
         textBtn.DOFade(0.0f, 2.0f);
         plmov.playTito();
         HideMouseCursor();
-        StartCoroutine(ExecuteAfterTime(2.5f));
+        StartCoroutine(ExecuteAfterTime(1.6f));
         FindObjectOfType<AudioManager>().Fade("Theme");
     }
 
@@ -56,6 +57,7 @@ public class StartFade : MonoBehaviour
 
         UITito.SetActive(true);
         gameObject.SetActive(false);
+        StartCanvas1.SetActive(false);
         //StartCanvas.GetComponent<Canvas>().sortingOrder = 0;
     }
 }

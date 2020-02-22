@@ -8,6 +8,7 @@ public class StartBernyFade : MonoBehaviour
 {
     public Text textBtn;
     public GameObject contBtn;
+    public GameObject startcan;
 
     // Start is called before the first frame update
     void Start()
@@ -45,5 +46,7 @@ public class StartBernyFade : MonoBehaviour
         gameObject.GetComponentInChildren<Text>().DOFade(0f, 1f);
         contBtn.GetComponent<Image>().DOFade(0f, 1f);
         textBtn.GetComponent<Text>().DOFade(0f, 1f);
+        yield return new WaitForSeconds(1f);
+        startcan.SetActive(false);
     }
 }

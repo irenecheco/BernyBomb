@@ -15203,6 +15203,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textBtn: {fileID: 2071863494}
   contBtn: {fileID: 445863305}
+  startcan: {fileID: 1260102725}
 --- !u!1001 &1278098221
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15997,6 +15998,8 @@ MonoBehaviour:
   settingsUI: {fileID: 631130610}
   controlsUI: {fileID: 825507842}
   TitoUI: {fileID: 424094359}
+  active:
+  - {fileID: 1260102725}
 --- !u!114 &1348618726
 MonoBehaviour:
   m_ObjectHideFlags: 0
