@@ -21,7 +21,7 @@ public class AggroDetection : MonoBehaviour
         {
             OnAggro(player.transform);
             Debug.Log("Aggro");
-            if(defaultSong.isPlaying == true)
+            if(defaultSong.isPlaying == true && fightSong.isPlaying == false)
             {
                 fightSong.Play();
                 defaultSong.Stop();

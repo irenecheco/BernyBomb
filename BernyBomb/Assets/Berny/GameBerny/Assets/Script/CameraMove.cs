@@ -12,12 +12,19 @@ public class CameraMove : MonoBehaviour
     public Transform pivot;
     public float maxViewAngle;
     public float minViewAngle;
+
+
+    //occlusion
+    public float zoomSpeed = 2f;
+    public Transform Obstruction;
     
 
     public bool invertY;
     // Start is called before the first frame update
     void Start()
+        
     {
+        Obstruction = pivot;
         if(!useOffsetValues)
         {
             offset = target.position - transform.position;
@@ -71,10 +78,41 @@ public class CameraMove : MonoBehaviour
             transform.position = new Vector3(transform.position.x, target.position.y -.5f, transform.position.z);
         }
         transform.LookAt(target);
+        ViewObstructed();
     }
 
     public void fakeTarget(GameObject newtarget)
     {
         target = newtarget.transform;
+    }
+
+    //OCCLUSION
+   void ViewObstructed()
+    {
+        RaycastHit hit;
+
+        if(Physics.Raycast(transform.position, pivot.position - transform.position, out hit, 4f))
+        {
+            if(hit.collider.gameObject.tag != "Player"  && hit.collider.gameObject.tag == "Wall")
+            {
+                Obstruction = hit.transform;
+                Obstruction.gameObject.GetComponent<MeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.ShadowsOnly;
+                if(Vector3.Distance(Obstruction.position, transform.position) >= 2.5f && Vector3.Distance(transform.position,target.position) >= 1f)
+                {
+                    
+                    transform.Translate(Vector3.forward * zoomSpeed * Time.deltaTime);
+                    Debug.Log("sono entrato nell if");
+                }
+            }
+            else
+            {
+                Obstruction.gameObject.GetComponent<MeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
+                if (Vector3.Distance(transform.position, pivot.position) < 4f)
+                {
+                    Debug.Log("setto tutto on");
+                    transform.Translate(Vector3.back * zoomSpeed * Time.deltaTime);
+                }
+            }
+        } 
     }
 }
