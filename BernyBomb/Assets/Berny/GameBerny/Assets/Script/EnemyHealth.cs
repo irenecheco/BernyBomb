@@ -14,6 +14,7 @@ public class EnemyHealth : MonoBehaviour
     public GameObject deathEffect;
     public AudioSource enemySoundDeath;
     public GameObject boss;
+    public AudioSource fightSong;
 
     //public Image endImage;
     //public float endSpeed;
@@ -40,7 +41,9 @@ public class EnemyHealth : MonoBehaviour
     }
     private void Die()
     {
+
         Destroy(gameObject);
+        fightSong.Pause();
         defaultSong.Play();
 
         if(gameObject.tag == "Boss")
