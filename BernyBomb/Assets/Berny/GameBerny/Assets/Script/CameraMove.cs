@@ -12,11 +12,13 @@ public class CameraMove : MonoBehaviour
     public Transform pivot;
     public float maxViewAngle;
     public float minViewAngle;
+    private bool noView;
 
 
     //occlusion
     public float zoomSpeed = 2f;
     public Transform Obstruction;
+    public Transform CurrentObject;
     
 
     public bool invertY;
@@ -24,6 +26,7 @@ public class CameraMove : MonoBehaviour
     void Start()
         
     {
+        noView = false;
         Obstruction = pivot;
         if(!useOffsetValues)
         {
@@ -35,6 +38,8 @@ public class CameraMove : MonoBehaviour
         //Cursor.visible = false;
         //Cursor.lockState = CursorLockMode.Locked;
     }
+   
+
 
     // Update is called once per frame
     void LateUpdate()
@@ -93,24 +98,61 @@ public class CameraMove : MonoBehaviour
 
         if(Physics.Raycast(transform.position, pivot.position - transform.position, out hit, 4f))
         {
-            if(hit.collider.gameObject.tag != "Player"  && hit.collider.gameObject.tag == "Wall")
+            if(hit.collider.gameObject.tag != "Player"  && hit.collider.gameObject.tag == "Wall" && noView == false )
             {
+                
                 Obstruction = hit.transform;
+                CurrentObject = Obstruction;
+                noView = true;
                 Obstruction.gameObject.GetComponent<MeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.ShadowsOnly;
                 if(Vector3.Distance(Obstruction.position, transform.position) >= 2.5f && Vector3.Distance(transform.position,target.position) >= 1f)
                 {
                     
                     transform.Translate(Vector3.forward * zoomSpeed * Time.deltaTime);
-                    Debug.Log("sono entrato nell if");
+                    Debug.Log("sono entrato nell if col false e mettto il collider attuale in OFF");
                 }
+                
             }
-            else
+            if (hit.collider.gameObject.tag != "Player" && hit.collider.gameObject.tag == "Wall" && noView == true && hit.transform == CurrentObject)
             {
+
+                Obstruction = hit.transform;
+                
+                Obstruction.gameObject.GetComponent<MeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.ShadowsOnly;
+                if (Vector3.Distance(Obstruction.position, transform.position) >= 2.5f && Vector3.Distance(transform.position, target.position) >= 1f)
+                {
+
+                    transform.Translate(Vector3.forward * zoomSpeed * Time.deltaTime);
+                    Debug.Log("sono entrato nell if col true mettto il collider attuale in OFF");
+                }
+
+            }
+
+            if (hit.collider.gameObject.tag != "Player" && hit.collider.gameObject.tag == "Wall" &&  noView == true && CurrentObject != hit.transform)
+            {
+                /*Debug.Log("Sono entrato nell'else if e adesso metto il collider precedente in ON");
+                CurrentObject.gameObject.GetComponent<MeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
+                CurrentObject = hit.transform;
+                if (CurrentObject == hit.transform)
+                {
+                    Debug.Log("Ho corretto l'object");
+                }*/
+                CurrentObject.gameObject.GetComponent<MeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
+                Debug.Log("Ho messo il vecchio collider on");
+                Obstruction = hit.transform;
+                CurrentObject = Obstruction;
+                Obstruction.gameObject.GetComponent<MeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.ShadowsOnly;
+                Debug.Log("Metto l'attuale collider off");
+
+            }
+            if (hit.collider.gameObject.tag == "Player")
+            { 
                 Obstruction.gameObject.GetComponent<MeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
                 if (Vector3.Distance(transform.position, pivot.position) < 4f)
                 {
-                    Debug.Log("setto tutto on");
+                    Debug.Log("Esco dal collider e metto ON");
                     transform.Translate(Vector3.back * zoomSpeed * Time.deltaTime);
+                    noView = false;
                 }
             }
         } 
