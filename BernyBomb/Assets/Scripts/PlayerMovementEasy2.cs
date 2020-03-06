@@ -78,10 +78,10 @@ public class PlayerMovementEasy2 : MonoBehaviour
             Interactmsg.CloseMessagePanel();
         }
 
-        if (Input.GetKeyDown(KeyCode.P))
+        /*if (Input.GetKeyDown(KeyCode.P))
         {
             StartCoroutine(ExecuteAfterTimeFinal(0.5f));
-        }
+        }*/
 
         if (Time.deltaTime == 0 || moveTito == false)
         {

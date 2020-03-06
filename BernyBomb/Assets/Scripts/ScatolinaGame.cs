@@ -16,10 +16,10 @@ public class ScatolinaGame : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Y) && ScatolinaUI.activeSelf)
+        /*if (Input.GetKeyDown(KeyCode.Y) && ScatolinaUI.activeSelf)
         {
             ShortcutScatolina();
-        }
+        }*/
     }
 
     public void ExitPlayBox()

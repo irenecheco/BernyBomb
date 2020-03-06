@@ -34,12 +34,12 @@ public class Player : MonoBehaviour
 
     {
 
-        if(Input.GetKeyDown(KeyCode.U))
+        /*if(Input.GetKeyDown(KeyCode.U))
         {
             gameObject.SetActive(false);
             fakeplayer.SetActive(true);
             camera.fakeTarget(fakeplayer);
-        }
+        }*/
 
         if (knockBackCounter <= 0)
         {

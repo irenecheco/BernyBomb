@@ -31,10 +31,10 @@ public class LockerGame : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Y) && LockerUI.activeSelf)
+        /*if (Input.GetKeyDown(KeyCode.Y) && LockerUI.activeSelf)
         {
             ShortcutLocker();
-        }
+        }*/
         if (inputs[4] == 4)
         {
             DOTween.Sequence().Append(ClosedL.GetComponent<Image>().DOFade(0.0f, 1f)).Join(OpenL.GetComponent<Image>().DOFade(1.0f, 1f).SetDelay(0.4f));
